@@ -38,8 +38,16 @@ workflows:
   version: 2
   lint-and-sync:
     jobs:
-      - lint-scripts
-      - lint-charts
+      - lint-scripts:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+      - lint-charts:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - sync:
           requires:
             - lint-scripts
@@ -48,3 +56,4 @@ workflows:
             branches:
               only:
                 - master
+                - gh-pages
