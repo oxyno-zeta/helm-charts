@@ -28,7 +28,7 @@ jobs:
       - run:
           name: prepare
           command: |
-            apk add --update bash git
+            apk add --update bash git openssh-client
             helm init --client-only
             git config --global user.email "oxynozeta.oz@gmail.com"
             git config --global user.name "CI"
