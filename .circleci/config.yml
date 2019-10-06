@@ -29,6 +29,7 @@ jobs:
           name: prepare
           command: |
             apk add --update bash git
+            helm init --client-only
       - run:
           name: sync
           command: |
