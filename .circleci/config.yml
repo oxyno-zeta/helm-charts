@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  lint-scripts:
+    docker:
+      - image: koalaman/shellcheck-alpine
+    steps:
+      - checkout
+      - run:
+          name: lint
+          command: |
+            shellcheck -x scripts/release.sh
+  lint-charts:
+    docker:
+      - image: gcr.io/kubernetes-charts-ci/test-image:v3.3.2
+    steps:
+      - checkout
+      - run:
+          name: lint
+          command: |
+            git remote add k8s https://github.com/oxyno-zeta/helm-charts
+            git fetch k8s master
+            ct lint --config scripts/ct.yaml
+  sync:
+    docker:
+      - image: alpine/helm:2.14.3
+    steps:
+      - checkout
+      - run:
+          name: prepare
+          command: |
+            apk add --update bash
+      - run:
+          name: sync
+          command: |
+            ./scripts/release.sh
+workflows:
+  version: 2
+  lint-and-sync:
+    jobs:
+      - lint-scripts
+      - lint-charts
+      - sync:
+          requires:
+            - lint-scripts
+            - lint-charts
+          filters:
+            branches:
+              only:
+                - master
