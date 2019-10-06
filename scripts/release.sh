@@ -22,6 +22,8 @@ sync_repo() {
 
 git checkout gh-pages
 
+git merge master
+
 # Stable case
 sync_repo stable
 
