@@ -30,6 +30,8 @@ jobs:
           command: |
             apk add --update bash git
             helm init --client-only
+            git config --global user.email "oxynozeta.oz@gmail.com"
+            git config --global user.name "CI"
       - run:
           name: sync
           command: |
