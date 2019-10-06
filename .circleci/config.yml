@@ -28,7 +28,7 @@ jobs:
       - run:
           name: prepare
           command: |
-            apk add --update bash
+            apk add --update bash git
       - run:
           name: sync
           command: |
