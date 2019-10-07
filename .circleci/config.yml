@@ -32,6 +32,7 @@ jobs:
             helm init --client-only
             git config --global user.email "oxynozeta.oz@gmail.com"
             git config --global user.name "CI"
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: sync
           command: |
