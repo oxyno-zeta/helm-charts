@@ -1,0 +1,41 @@
+{{- if .Values.prometheus.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "s3-proxy.fullname" . }}
+  {{- if .Values.prometheus.serviceMonitor.namespace }}
+  namespace: {{ .Values.prometheus.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+    helm.sh/chart: {{ include "s3-proxy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- if .Values.prometheus.serviceMonitor.labels }}
+    {{- toYaml .Values.prometheus.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+    - port: metrics
+      {{- if .Values.prometheus.serviceMonitor.interval }}
+      interval: {{ .Values.prometheus.serviceMonitor.interval }}
+      {{- end }}
+      {{ if .Values.prometheus.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.prometheus.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+      {{ if .Values.prometheus.serviceMonitor.metricRelabelings }}
+      metricRelabelings: {{ .Values.prometheus.serviceMonitor.metricRelabelings }}
+      {{- end }}
+      {{ if .Values.prometheus.serviceMonitor.relabelings }}
+      relabelings: {{ .Values.prometheus.serviceMonitor.relabelings }}
+      {{- end }}
+      scheme: {{ .Values.prometheus.serviceMonitor.scheme }}
+  jobLabel: "{{ .Release.Name }}"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}

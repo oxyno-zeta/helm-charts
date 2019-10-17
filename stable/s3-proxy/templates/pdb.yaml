@@ -1,0 +1,22 @@
+{{- if .Values.podDisruptionBudget.enabled -}}
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "s3-proxy.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+    helm.sh/chart: {{ include "s3-proxy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- end  }}
+  {{- if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- end  }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}

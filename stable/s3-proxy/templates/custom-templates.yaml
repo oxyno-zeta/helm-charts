@@ -1,0 +1,15 @@
+{{- if .Values.customTemplates }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "s3-proxy.fullname" . }}-custom-templates
+  labels:
+    app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+    helm.sh/chart: {{ include "s3-proxy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+{{- range $key, $value := .Values.customTemplates }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}

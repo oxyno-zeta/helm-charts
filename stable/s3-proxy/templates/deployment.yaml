@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "s3-proxy.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+    helm.sh/chart: {{ include "s3-proxy.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.customTemplates }}
+        checksum/custom-templates: {{ include (print $.Template.BasePath "/custom-templates.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.secretFiles }}
+        checksum/secret-file: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: internal
+              containerPort: 9090
+              protocol: TCP
+          {{ if .Values.env -}}
+          env:
+          {{- range $key, $value := .Values.env }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
+          livenessProbe:
+            {{ if .Values.livenessProbe }}
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+            {{- end -}}
+            httpGet:
+              path: /health
+              port: internal
+          readinessProbe:
+            {{ if .Values.readinessProbe }}
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+            {{- end -}}
+            httpGet:
+              path: /health
+              port: internal
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /conf
+          {{- if .Values.customTemplates }}
+          - name: custom-templates-volume
+            mountPath: /custom-templates
+          {{- end }}
+          {{- if .Values.secretFiles }}
+          - name: secret-files-volume
+            mountPath: /secret-files
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "s3-proxy.fullname" . }}-config
+        {{- if .Values.customTemplates }}
+        - name: custom-templates-volume
+          configMap:
+            name: {{ include "s3-proxy.fullname" . }}-custom-templates
+        {{- end }}
+        {{- if .Values.secretFiles }}
+        - name: secret-files-volume
+          secret:
+            secretName: {{ include "s3-proxy.fullname" . }}-secret-files
+        {{- end }}
