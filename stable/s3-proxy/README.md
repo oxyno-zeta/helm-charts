@@ -1,6 +1,6 @@
 # s3-proxy
 
-[s3-proxy](https://github.com/oxyno-zeta/s3-proxy) is a Kubernetes watcher that will tag external resources like EBS following rules.
+[s3-proxy](https://github.com/oxyno-zeta/s3-proxy) is a S3 proxy with multi bucket support, OIDC authentication, basic auth, ...
 
 ## TL;DR;
 
