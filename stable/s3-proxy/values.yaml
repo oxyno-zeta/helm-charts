@@ -162,7 +162,8 @@ prometheus:
     # metricRelabelings: []
     # relabelings: []
 
-podAnnotations: {} # Arbitrary non-identifying metadata for zookeeper pods.
+# Arbitrary non-identifying metadata for s3-proxy pods.
+podAnnotations: {}
   # prometheus.io/scrape: "true"
   # prometheus.io/path: "/metrics"
   # prometheus.io/port: "9090"
