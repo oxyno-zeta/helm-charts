@@ -1,0 +1,175 @@
+# Default values for s3-proxy.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: oxynozeta/s3-proxy
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  # nodePort: 8888
+  # clusterIP:
+  # externalIPs: []
+  # loadBalancerIP:
+  # loadBalancerSourceRanges: []
+  # annotations: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# Custom templates declaration
+# Will be mounted in /custom-templates
+customTemplates: {}
+#   # Bad Request template example
+#   bad-request.tpl: |-
+#     <!DOCTYPE html>
+#     <html>
+#       <body>
+#         <h1>Bad Request</h1>
+#         <p>{{ .Error }}</p>
+#       </body>
+#     </html>
+#   # Add other template files here
+
+# Secret files for secrets declaration
+# Will be mounted in /secret-files
+secretFiles: {}
+  # Example
+  # my-syper-secret-file: my-awesome-secret
+
+# Environment variables
+env: {}
+  # Example
+  # VARIABLE: VALUE
+
+config: |-
+  # Log configuration
+  # log:
+  #   # Log level
+  #   level: info
+  #   # Log format
+  #   format: json
+  # If only bucket is in the list, use it as main url and don't mount it on /<BUCKET_NAME>
+  # mainBucketPathSupport: true
+  # Template configurations
+  # template:
+  #   badRequest: custom-templates/bad-request.tpl
+  # Authentication
+  # auth:
+  #   oidc:
+  #     clientID: client-id
+  #     clientSecret:
+  #       path: client-secret-in-file # client secret file
+  #     state: my-secret-state-key # do not use this in production ! put something random here
+  #     issuerUrl: https://issuer-url/
+  #     redirectUrl: http://localhost:8080/ # /auth/oidc/callback will be added automatically
+  #     scopes: # OIDC Scopes (defaults: oidc, email, profile)
+  #       - oidc
+  #       - email
+  #       - profile
+  #     groupClaim: groups # path in token
+  #     emailVerified: true # check email verified field from token
+  #     authorizationAccesses: # Authorization accesses : groups or email
+  #       - group: devops_users
+  #   basic:
+  #     realm: My Basic Auth Realm
+  #     credentials:
+  #       - user: user1
+  #         password:
+  #           path: password1-in-file
+  # Targets
+  targets:
+    - name: first-bucket
+      bucket:
+        name: super-bucket
+        region: eu-west-1
+        # prefix:
+        # s3Endpoint:
+        # credentials:
+        #   accessKey:
+        #     env: AWS_ACCESS_KEY_ID
+        #     path:
+        #     value: # Not recommended
+        #   secretKey:
+        #     env:
+        #     path: secret_key_file
+        #     value: # Not recommended
+      # indexDocument: index.html
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# livenessProbe:
+#   initialDelaySeconds: 0
+#   periodSeconds: 10
+#   timeoutSeconds: 1
+#   successThreshold: 1
+#   failureThreshold: 3
+
+# readinessProbe:
+#   initialDelaySeconds: 0
+#   periodSeconds: 10
+#   timeoutSeconds: 1
+#   successThreshold: 1
+#   failureThreshold: 3
+
+## ServiceMonitor configuration in case you are using Prometheus Operator
+prometheus:
+  serviceMonitor:
+    ## If true a ServiceMonitor for each enabled exporter will be installed
+    enabled: false
+    ## The namespace where the ServiceMonitor(s) will be installed
+    # namespace: monitoring
+    ## The selector the Prometheus instance is searching for
+    ## [Default Prometheus Operator selector] (https://github.com/helm/charts/blob/f5a751f174263971fafd21eee4e35416d6612a3d/stable/prometheus-operator/templates/prometheus/prometheus.yaml#L74)
+    labels: {}
+    scheme: http
+    # interval: 30s
+    # scrapeTimeout: 30s
+    # metricRelabelings: []
+    # relabelings: []
+
+# Arbitrary non-identifying metadata for s3-proxy pods.
+podAnnotations: {}
+  # prometheus.io/scrape: "true"
+  # prometheus.io/path: "/metrics"
+  # prometheus.io/port: "9090"
+
+podDisruptionBudget:
+  # https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  enabled: false
+  minAvailable: 1
+  maxUnavailable:
