@@ -3,9 +3,9 @@ entries:
   kubernetes-tagger:
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-10-17T21:58:58.80887218Z"
+    created: "2019-10-20T07:54:57.196959155Z"
     description: A Helm chart for Kubernetes Tagger
-    digest: 733488ce3f838c5fe5afb9a80844a84e9bc660ba909d54901dc7127e571cbc92
+    digest: 68197be1595aa8bde02928d183d2325488ed9513c786922ae5b6f2e82ceecda7
     home: https://github.com/oxyno-zeta/kubernetes-tagger
     maintainers:
     - email: havrileckalexandre@gmail.com
@@ -18,7 +18,7 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-10-17T21:58:58.808129769Z"
+    created: "2019-10-20T07:54:57.196501806Z"
     description: A Helm chart for Kubernetes Tagger
     digest: f6708ff2c725776f165ba3c65c87aa7e04a05d110bbe47eaf0d68bd95e747724
     home: https://github.com/oxyno-zeta/kubernetes-tagger
@@ -34,9 +34,9 @@ entries:
   s3-proxy:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-10-17T21:58:58.810214173Z"
+    created: "2019-10-20T07:54:57.197856837Z"
     description: A Helm chart for Kubernetes
-    digest: 19f59ea918349a5b467e99c8d0eb1ce36778e72d025ccdd5757e275721b29ee7
+    digest: e02bb0a7c72b4cf6fae240d593ff81c7f14987978bd1a80be531b4def6aeaa5f
     home: https://github.com/oxyno-zeta/s3-proxy
     maintainers:
     - email: havrileckalexandre@gmail.com
@@ -49,7 +49,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-10-17T21:58:58.809577645Z"
+    created: "2019-10-20T07:54:57.197415343Z"
     description: A Helm chart for Kubernetes
     digest: f483177abfcc30b18450f653a681b1817a4e048ac3532f0f6f146292a3308bb5
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -62,4 +62,4 @@ entries:
     urls:
     - https://oxyno-zeta.github.io/helm-charts/stable/s3-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2019-10-17T21:58:58.807130781Z"
+generated: "2019-10-20T07:54:57.19582567Z"
