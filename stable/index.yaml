@@ -3,9 +3,9 @@ entries:
   kubernetes-tagger:
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-10-20T07:54:57.196959155Z"
+    created: "2019-11-14T22:14:55.673186519Z"
     description: A Helm chart for Kubernetes Tagger
-    digest: 68197be1595aa8bde02928d183d2325488ed9513c786922ae5b6f2e82ceecda7
+    digest: 2e2c428d0f6be45e52f3a3117b28ace2fd382a78ea15ec1b63ab0536de739182
     home: https://github.com/oxyno-zeta/kubernetes-tagger
     maintainers:
     - email: havrileckalexandre@gmail.com
@@ -18,7 +18,7 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-10-20T07:54:57.196501806Z"
+    created: "2019-11-14T22:14:55.672719462Z"
     description: A Helm chart for Kubernetes Tagger
     digest: f6708ff2c725776f165ba3c65c87aa7e04a05d110bbe47eaf0d68bd95e747724
     home: https://github.com/oxyno-zeta/kubernetes-tagger
@@ -33,8 +33,23 @@ entries:
     version: 1.0.1
   s3-proxy:
   - apiVersion: v1
+    appVersion: 1.1.0
+    created: "2019-11-14T22:14:55.674539932Z"
+    description: A Helm chart for Kubernetes
+    digest: 51a6ec16694fccc64be31a47b99a92ba701000953f48d3667ae7d100aefaaa07
+    home: https://github.com/oxyno-zeta/s3-proxy
+    maintainers:
+    - email: havrileckalexandre@gmail.com
+      name: oxyno-zeta
+    name: s3-proxy
+    sources:
+    - https://github.com/oxyno-zeta/s3-proxy
+    urls:
+    - https://oxyno-zeta.github.io/helm-charts/stable/s3-proxy-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-10-20T07:54:57.197856837Z"
+    created: "2019-11-14T22:14:55.674084716Z"
     description: A Helm chart for Kubernetes
     digest: e02bb0a7c72b4cf6fae240d593ff81c7f14987978bd1a80be531b4def6aeaa5f
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -49,7 +64,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-10-20T07:54:57.197415343Z"
+    created: "2019-11-14T22:14:55.673634188Z"
     description: A Helm chart for Kubernetes
     digest: f483177abfcc30b18450f653a681b1817a4e048ac3532f0f6f146292a3308bb5
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -62,4 +77,4 @@ entries:
     urls:
     - https://oxyno-zeta.github.io/helm-charts/stable/s3-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2019-10-20T07:54:57.19582567Z"
+generated: "2019-11-14T22:14:55.672014629Z"
