@@ -22,7 +22,7 @@ spec:
       nodePort: {{ .Values.service.nodePort }}
 {{- end }}
     - port: 9090
-      targetPort: metrics
+      targetPort: internal
       protocol: TCP
       name: metrics
   {{- if .Values.service.clusterIP }}
