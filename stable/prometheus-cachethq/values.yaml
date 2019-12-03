@@ -1,0 +1,146 @@
+# Default values for prometheus-cachethq.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: oxyno-zeta/prometheus-cachethq
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  # nodePort: 8888
+  # clusterIP:
+  # externalIPs: []
+  # loadBalancerIP:
+  # loadBalancerSourceRanges: []
+  # annotations: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+config: |-
+  #
+  # See configuration of project: https://oxyno-zeta.github.io/prometheus-cachethq/
+  #
+  # Log configuration
+  # log:
+  #   # Log level
+  #   level: info
+  #   # Log format
+  #   format: json
+  # Cachet configuration
+  cachet:
+    url: http://localhost
+    apiKey: API_KEY
+  # Targets
+  targets:
+    - component:
+        name: COMPONENT_NAME
+        status: PARTIAL_OUTAGE
+      alerts:
+        - name: SERVICE_OFFLINE
+      #   - labels:
+      #       label1: value1
+      # incident:
+      #   name: ""
+      #   content: ""
+      #   status: INVESTIGATING
+      #   public: true
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# livenessProbe:
+#   initialDelaySeconds: 0
+#   periodSeconds: 10
+#   timeoutSeconds: 1
+#   successThreshold: 1
+#   failureThreshold: 3
+
+# readinessProbe:
+#   initialDelaySeconds: 0
+#   periodSeconds: 10
+#   timeoutSeconds: 1
+#   successThreshold: 1
+#   failureThreshold: 3
+
+## ServiceMonitor configuration in case you are using Prometheus Operator
+prometheus:
+  serviceMonitor:
+    ## If true a ServiceMonitor for each enabled exporter will be installed
+    enabled: false
+    ## The namespace where the ServiceMonitor(s) will be installed
+    # namespace: monitoring
+    ## The selector the Prometheus instance is searching for
+    ## [Default Prometheus Operator selector] (https://github.com/helm/charts/blob/f5a751f174263971fafd21eee4e35416d6612a3d/stable/prometheus-operator/templates/prometheus/prometheus.yaml#L74)
+    labels: {}
+    scheme: http
+    # interval: 30s
+    # scrapeTimeout: 30s
+    # metricRelabelings: []
+    # relabelings: []
+
+# Arbitrary non-identifying metadata for prometheus-cachethq pods.
+podAnnotations: {}
+  # prometheus.io/scrape: "true"
+  # prometheus.io/path: "/metrics"
+  # prometheus.io/port: "9090"
+
+podDisruptionBudget:
+  # https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  enabled: false
+  minAvailable: 1
+  maxUnavailable:
