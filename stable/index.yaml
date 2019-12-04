@@ -3,7 +3,22 @@ entries:
   kubernetes-tagger:
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-12-03T21:55:58.277626012Z"
+    created: "2019-12-04T21:54:27.729647292Z"
+    description: A Helm chart for Kubernetes Tagger
+    digest: 92814da421f436b9e65f284a39098e8a46128bf77ce87499b49c74d36d202977
+    home: https://github.com/oxyno-zeta/kubernetes-tagger
+    maintainers:
+    - email: havrileckalexandre@gmail.com
+      name: oxyno-zeta
+    name: kubernetes-tagger
+    sources:
+    - https://github.com/oxyno-zeta/kubernetes-tagger
+    urls:
+    - https://oxyno-zeta.github.io/helm-charts/stable/kubernetes-tagger-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v1
+    appVersion: 1.2.1
+    created: "2019-12-04T21:54:27.72921928Z"
     description: A Helm chart for Kubernetes Tagger
     digest: d96e6c4f80dab17d955fb9eae96ba469bc827078bf29ce2f0d4a2a780bf256ad
     home: https://github.com/oxyno-zeta/kubernetes-tagger
@@ -18,7 +33,7 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.2.1
-    created: "2019-12-03T21:55:58.276920045Z"
+    created: "2019-12-04T21:54:27.728724025Z"
     description: A Helm chart for Kubernetes Tagger
     digest: f6708ff2c725776f165ba3c65c87aa7e04a05d110bbe47eaf0d68bd95e747724
     home: https://github.com/oxyno-zeta/kubernetes-tagger
@@ -34,9 +49,9 @@ entries:
   prometheus-cachethq:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-12-03T21:55:58.278804187Z"
+    created: "2019-12-04T21:54:27.7306445Z"
     description: A Helm chart for Kubernetes to deploy Prometheus-CachetHQ
-    digest: 1a47a8eb94b8c80357d25652df20b04e7022177d43da44b631a59f01be658ccc
+    digest: 36188dd390904679772809214c117f47f6bf8dd378dbc7001a26634d131ac4a5
     home: https://github.com/oxyno-zeta/prometheus-cachethq
     maintainers:
     - email: havrileckalexandre@gmail.com
@@ -49,7 +64,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-12-03T21:55:58.278179092Z"
+    created: "2019-12-04T21:54:27.730004141Z"
     description: A Helm chart for Kubernetes to deploy Prometheus-CachetHQ
     digest: b3d5461161c4f374e7cbbffe320e81c5c3b879e994c56357f6aa95d44e1ae302
     home: https://github.com/oxyno-zeta/prometheus-cachethq
@@ -65,9 +80,9 @@ entries:
   s3-proxy:
   - apiVersion: v1
     appVersion: 1.1.0
-    created: "2019-12-03T21:55:58.281917791Z"
+    created: "2019-12-04T21:54:27.732922029Z"
     description: A Helm chart for Kubernetes
-    digest: f90842beee893d788c30b181fd9c43c5ec56723722cfe55fdbc9553956b38abc
+    digest: 7643b58fafec6793d607a72b85be3bd1fd3c12996e023f3ccc4cee0e30a92d05
     home: https://github.com/oxyno-zeta/s3-proxy
     maintainers:
     - email: havrileckalexandre@gmail.com
@@ -80,7 +95,7 @@ entries:
     version: 1.1.1
   - apiVersion: v1
     appVersion: 1.1.0
-    created: "2019-12-03T21:55:58.281405269Z"
+    created: "2019-12-04T21:54:27.732483754Z"
     description: A Helm chart for Kubernetes
     digest: 51a6ec16694fccc64be31a47b99a92ba701000953f48d3667ae7d100aefaaa07
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -95,7 +110,7 @@ entries:
     version: 1.1.0
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-12-03T21:55:58.280767685Z"
+    created: "2019-12-04T21:54:27.732050387Z"
     description: A Helm chart for Kubernetes
     digest: e02bb0a7c72b4cf6fae240d593ff81c7f14987978bd1a80be531b4def6aeaa5f
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -110,7 +125,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-12-03T21:55:58.280215465Z"
+    created: "2019-12-04T21:54:27.731594227Z"
     description: A Helm chart for Kubernetes
     digest: f483177abfcc30b18450f653a681b1817a4e048ac3532f0f6f146292a3308bb5
     home: https://github.com/oxyno-zeta/s3-proxy
@@ -123,4 +138,4 @@ entries:
     urls:
     - https://oxyno-zeta.github.io/helm-charts/stable/s3-proxy-1.0.0.tgz
     version: 1.0.0
-generated: "2019-12-03T21:55:58.275999911Z"
+generated: "2019-12-04T21:54:27.728007918Z"
