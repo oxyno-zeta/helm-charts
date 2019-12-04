@@ -20,6 +20,10 @@ spec:
   template:
     metadata:
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if (and .Values.secrets.aws.secretKey .Values.secrets.aws.accessKey) }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+        {{- end }}
         {{- if and .Values.prometheus.pod.enabled  (not .Values.prometheus.operator.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: "8085"
