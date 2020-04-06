@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: oxynozeta/s3-proxy
-  tag: 2.1.0
+  tag: 2.4.0
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -71,7 +71,7 @@ config: |-
   #   # Log format
   #   format: json
   # Template configurations
-  # template:
+  # templates:
   #   badRequest: templates/bad-request.tpl
   #   folderList: templates/folder-list.tpl
   #   forbidden: templates/forbidden.tpl
@@ -79,8 +79,9 @@ config: |-
   #   notFound: templates/not-found.tpl
   #   targetList: templates/target-list.tpl
   #   unauthorized: templates/unauthorized.tpl
-  # Authentication
-  # auth:
+
+  # Authentication Providers
+  # authProviders:
   #   oidc:
   #     provider1:
   #       clientID: client-id
@@ -102,6 +103,7 @@ config: |-
   #   basic:
   #     provider2:
   #       realm: My Basic Auth Realm
+
   # List targets feature
   # This will generate a webpage with list of targets with links using targetList template
   # listTargets:
@@ -129,7 +131,7 @@ config: |-
   #     # OIDC section for access filter
   #     oidc:
   #       # NOTE: This list can be empty ([]) for authentication only and no group filter
-  #       authorizationAccesses: # Authorization accesses : groups or email
+  #       authorizationAccesses: # Authorization accesses : groups or email or regexp
   #         - group: devops_users
   #     # Basic authentication section
   #     basic:
@@ -137,6 +139,7 @@ config: |-
   #         - user: user1
   #           password:
   #             path: password1-in-file
+
   # Targets
   targets:
     - name: first-bucket
@@ -164,7 +167,7 @@ config: |-
       #     # OIDC section for access filter
       #     oidc:
       #       # NOTE: This list can be empty ([]) for authentication only and no group filter
-      #       authorizationAccesses: # Authorization accesses : groups or email
+      #       authorizationAccesses: # Authorization accesses : groups or email or regexp
       #         - group: specific_users
       #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
       #   - path: /directory1/*
@@ -207,12 +210,39 @@ config: |-
       #   DELETE:
       #     # Will allow DELETE requests
       #     enabled: true
+      ## Target custom templates
+      # templates:
+      #   # Folder list template
+      #   folderList:
+      #     inBucket: false
+      #     path: ""
+      #   # Not found template
+      #   notFound:
+      #     inBucket: false
+      #     path: ""
+      #   # Internal server error template
+      #   internalServerError:
+      #     inBucket: false
+      #     path: ""
+      #   # Forbidden template
+      #   forbidden:
+      #     inBucket: false
+      #     path: ""
+      #   # Unauthorized template
+      #   unauthorized:
+      #     inBucket: false
+      #     path: ""
+      #   # BadRequest template
+      #   badRequest:
+      #     inBucket: false
+      #     path: ""
       ## Bucket configuration
       bucket:
         name: super-bucket
         prefix:
         region: eu-west-1
         s3Endpoint:
+        disableSSL: false
         # credentials:
         #   accessKey:
         #     env: AWS_ACCESS_KEY_ID
