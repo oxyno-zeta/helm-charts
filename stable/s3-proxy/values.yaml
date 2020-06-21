@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: oxynozeta/s3-proxy
-  tag: 2.5.0
+  tag: 3.0.0
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -60,194 +60,205 @@ env: {}
   # Example
   # VARIABLE: VALUE
 
-config: |-
-  #
-  # See configuration of project: https://oxyno-zeta.github.io/s3-proxy/
-  #
-  # Log configuration
-  # log:
-  #   # Log level
-  #   level: info
-  #   # Log format
-  #   format: json
-  # Template configurations
-  # templates:
-  #   badRequest: templates/bad-request.tpl
-  #   folderList: templates/folder-list.tpl
-  #   forbidden: templates/forbidden.tpl
-  #   internalServerError: templates/internal-server-error.tpl
-  #   notFound: templates/not-found.tpl
-  #   targetList: templates/target-list.tpl
-  #   unauthorized: templates/unauthorized.tpl
+#
+# See configuration of project: https://oxyno-zeta.github.io/s3-proxy/
+#
+configFiles:
+  config.yaml: |-
+    # Log configuration
+    log:
+      # Log level
+      level: info
+      # Log format
+      format: text
 
-  # Authentication Providers
-  # authProviders:
-  #   oidc:
-  #     provider1:
-  #       clientID: client-id
-  #       clientSecret:
-  #         path: client-secret-in-file # client secret file
-  #       state: my-secret-state-key # do not use this in production ! put something random here
-  #       issuerUrl: https://issuer-url/
-  #       redirectUrl: http://localhost:8080/ # /auth/oidc/callback will be added automatically
-  #       scopes: # OIDC Scopes (defaults: oidc, email, profile)
-  #         - oidc
-  #         - email
-  #         - profile
-  #       groupClaim: groups # path in token
-  #       # cookieSecure: true # Is the cookie generated secure ?
-  #       # cookieName: oidc # Cookie generated name
-  #       emailVerified: true # check email verified field from token
-  #       # loginPath: /auth/provider1 # Override login path dynamically generated from provider key
-  #       # callbackPath: /auth/provider1/callback # Override callback path dynamically generated from provider key
-  #   basic:
-  #     provider2:
-  #       realm: My Basic Auth Realm
+    # Template configurations
+    # templates:
+    #   badRequest: templates/bad-request.tpl
+    #   folderList: templates/folder-list.tpl
+    #   forbidden: templates/forbidden.tpl
+    #   internalServerError: templates/internal-server-error.tpl
+    #   notFound: templates/not-found.tpl
+    #   targetList: templates/target-list.tpl
+    #   unauthorized: templates/unauthorized.tpl
 
-  # List targets feature
-  # This will generate a webpage with list of targets with links using targetList template
-  # listTargets:
-  #   # To enable the list targets feature
-  #   enabled: false
-  #   ## Mount point
-  #   mount:
-  #     path:
-  #       - /
-  #     # A specific host can be added for filtering. Otherwise, all hosts will be accepted
-  #     # host: localhost:8080
-  #   ## Resource configuration
-  #   resource:
-  #     # A Path must be declared for a resource filtering
-  #     path: /
-  #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
-  #     methods:
-  #       - GET
-  #       - PUT
-  #       - DELETE
-  #     # Whitelist
-  #     whitelist: false
-  #     # A authentication provider declared in section before, here is the key name
-  #     provider: provider1
-  #     # OIDC section for access filter
-  #     oidc:
-  #       # NOTE: This list can be empty ([]) for authentication only and no group filter
-  #       authorizationAccesses: # Authorization accesses : groups or email or regexp
-  #         - group: devops_users
-  #     # Basic authentication section
-  #     basic:
-  #       credentials:
-  #         - user: user1
-  #           password:
-  #             path: password1-in-file
+    # Authentication Providers
+    # authProviders:
+    #   oidc:
+    #     provider1:
+    #       clientID: client-id
+    #       clientSecret:
+    #         path: client-secret-in-file # client secret file
+    #       state: my-secret-state-key # do not use this in production ! put something random here
+    #       issuerUrl: https://issuer-url/
+    #       redirectUrl: http://localhost:8080/ # /auth/oidc/callback will be added automatically
+    #       scopes: # OIDC Scopes (defaults: oidc, email, profile)
+    #         - oidc
+    #         - email
+    #         - profile
+    #       groupClaim: groups # path in token
+    #       # cookieSecure: true # Is the cookie generated secure ?
+    #       # cookieName: oidc # Cookie generated name
+    #       emailVerified: true # check email verified field from token
+    #       # loginPath: /auth/provider1 # Override login path dynamically generated from provider key
+    #       # callbackPath: /auth/provider1/callback # Override callback path dynamically generated from provider key
+    #   basic:
+    #     provider2:
+    #       realm: My Basic Auth Realm
 
-  # Targets
-  targets:
-    - name: first-bucket
-      # ## Mount point
-      # mount:
-      #   path:
-      #     - /
-      #   # A specific host can be added for filtering. Otherwise, all hosts will be accepted
-      #   # host: localhost:8080
-      # ## Resources declaration
-      # resources:
-      #   # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
-      #   - path: /
-      #     # Whitelist
-      #     whiteList: true
-      #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
-      #   - path: /specific_doc/*
-      #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
-      #     methods:
-      #       - GET
-      #       - PUT
-      #       - DELETE
-      #     # A authentication provider declared in section before, here is the key name
-      #     provider: provider1
-      #     # OIDC section for access filter
-      #     oidc:
-      #       # NOTE: This list can be empty ([]) for authentication only and no group filter
-      #       authorizationAccesses: # Authorization accesses : groups or email or regexp
-      #         - group: specific_users
-      #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
-      #   - path: /directory1/*
-      #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
-      #     methods:
-      #       - GET
-      #       - PUT
-      #       - DELETE
-      #     # A authentication provider declared in section before, here is the key name
-      #     provider: provider1
-      #     # Basic authentication section
-      #     basic:
-      #       credentials:
-      #         - user: user1
-      #           password:
-      #             path: password1-in-file
-      # ## Index document to display if exists in folder
-      # indexDocument: index.html
-      # ## Actions
-      # actions:
-      #   # Action for GET requests on target
-      #   GET:
-      #     # Will allow GET requests
-      #     enabled: true
-      #   # Action for PUT requests on target
-      #   PUT:
-      #     # Will allow PUT requests
-      #     enabled: true
-      #     # Configuration for PUT requests
-      #     config:
-      #       # Metadata key/values that will be put on S3 objects
-      #       metadata:
-      #         key: value
-      #       # Storage class that will be used for uploaded objects
-      #       # See storage class here: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
-      #       storageClass: STANDARD # GLACIER, ...
-      #       # Will allow override objects if enabled
-      #       allowOverride: false
-      #   # Action for DELETE requests on target
-      #   DELETE:
-      #     # Will allow DELETE requests
-      #     enabled: true
-      ## Target custom templates
-      # templates:
-      #   # Folder list template
-      #   folderList:
-      #     inBucket: false
-      #     path: ""
-      #   # Not found template
-      #   notFound:
-      #     inBucket: false
-      #     path: ""
-      #   # Internal server error template
-      #   internalServerError:
-      #     inBucket: false
-      #     path: ""
-      #   # Forbidden template
-      #   forbidden:
-      #     inBucket: false
-      #     path: ""
-      #   # Unauthorized template
-      #   unauthorized:
-      #     inBucket: false
-      #     path: ""
-      #   # BadRequest template
-      #   badRequest:
-      #     inBucket: false
-      #     path: ""
-      ## Bucket configuration
-      bucket:
-        name: super-bucket
-        prefix:
-        region: eu-west-1
-        s3Endpoint:
-        disableSSL: false
-        # credentials:
-        #   accessKey:
-        #     env: AWS_ACCESS_KEY_ID
-        #   secretKey:
-        #     path: secret_key_file
+    # List targets feature
+    # This will generate a webpage with list of targets with links using targetList template
+    # listTargets:
+    #   # To enable the list targets feature
+    #   enabled: false
+    #   ## Mount point
+    #   mount:
+    #     path:
+    #       - /
+    #     # A specific host can be added for filtering. Otherwise, all hosts will be accepted
+    #     # host: localhost:8080
+    #   ## Resource configuration
+    #   resource:
+    #     # A Path must be declared for a resource filtering
+    #     path: /
+    #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
+    #     methods:
+    #       - GET
+    #       - PUT
+    #       - DELETE
+    #     # Whitelist
+    #     whitelist: false
+    #     # A authentication provider declared in section before, here is the key name
+    #     provider: provider1
+    #     # OIDC section for access filter
+    #     oidc:
+    #       # NOTE: This list can be empty ([]) for authentication only and no group filter
+    #       authorizationAccesses: # Authorization accesses : groups or email or regexp
+    #         - group: devops_users
+    #     # Basic authentication section
+    #     basic:
+    #       credentials:
+    #         - user: user1
+    #           password:
+    #             path: password1-in-file
+
+    # Targets
+    targets:
+      - name: first-bucket
+        ## Mount point
+        mount:
+          path:
+            - /
+          # A specific host can be added for filtering. Otherwise, all hosts will be accepted
+          # host: localhost:8080
+        # ## Resources declaration
+        # ## WARNING: Think about all path that you want to protect. At the end of the list, you should add a resource filter for /* otherwise, it will be public.
+        # resources:
+        #   # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
+        #   - path: /
+        #     # Whitelist
+        #     whiteList: true
+        #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
+        #   - path: /specific_doc/*
+        #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
+        #     methods:
+        #       - GET
+        #       - PUT
+        #       - DELETE
+        #     # A authentication provider declared in section before, here is the key name
+        #     provider: provider1
+        #     # OIDC section for access filter
+        #     oidc:
+        #       # NOTE: This list can be empty ([]) for authentication only and no group filter
+        #       authorizationAccesses: # Authorization accesses : groups or email or regexp
+        #         - group: specific_users
+        #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
+        #   - path: /directory1/*
+        #     # HTTP Methods authorized (Must be in GET, PUT or DELETE)
+        #     methods:
+        #       - GET
+        #       - PUT
+        #       - DELETE
+        #     # A authentication provider declared in section before, here is the key name
+        #     provider: provider1
+        #     # Basic authentication section
+        #     basic:
+        #       credentials:
+        #         - user: user1
+        #           password:
+        #             path: password1-in-file
+        #     # A Path must be declared for a resource filtering (a wildcard can be added to match every sub path)
+        #   - path: /opa-protected/*
+        #     # OIDC section for access filter
+        #     oidc:
+        #       # Authorization through OPA server configuration
+        #       authorizationOPAServer:
+        #         # OPA server url with data path
+        #         url: http://localhost:8181/v1/data/example/authz/allowed
+        # ## Index document to display if exists in folder
+        # indexDocument: index.html
+        # ## Actions
+        # actions:
+        #   # Action for GET requests on target
+        #   GET:
+        #     # Will allow GET requests
+        #     enabled: true
+        #   # Action for PUT requests on target
+        #   PUT:
+        #     # Will allow PUT requests
+        #     enabled: true
+        #     # Configuration for PUT requests
+        #     config:
+        #       # Metadata key/values that will be put on S3 objects
+        #       metadata:
+        #         key: value
+        #       # Storage class that will be used for uploaded objects
+        #       # See storage class here: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
+        #       storageClass: STANDARD # GLACIER, ...
+        #       # Will allow override objects if enabled
+        #       allowOverride: false
+        #   # Action for DELETE requests on target
+        #   DELETE:
+        #     # Will allow DELETE requests
+        #     enabled: true
+        ## Target custom templates
+        # templates:
+        #   # Folder list template
+        #   folderList:
+        #     inBucket: false
+        #     path: ""
+        #   # Not found template
+        #   notFound:
+        #     inBucket: false
+        #     path: ""
+        #   # Internal server error template
+        #   internalServerError:
+        #     inBucket: false
+        #     path: ""
+        #   # Forbidden template
+        #   forbidden:
+        #     inBucket: false
+        #     path: ""
+        #   # Unauthorized template
+        #   unauthorized:
+        #     inBucket: false
+        #     path: ""
+        #   # BadRequest template
+        #   badRequest:
+        #     inBucket: false
+        #     path: ""
+        ## Bucket configuration
+        bucket:
+          name: super-bucket
+          prefix:
+          region: eu-west-1
+          s3Endpoint:
+          disableSSL: false
+          # credentials:
+          #   accessKey:
+          #     env: AWS_ACCESS_KEY_ID
+          #   secretKey:
+          #     path: secret_key_file
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -302,6 +313,18 @@ podAnnotations: {}
   # prometheus.io/scrape: "true"
   # prometheus.io/path: "/metrics"
   # prometheus.io/port: "9090"
+
+grafana:
+  # Use this only if you are using the Grafana operator from https://github.com/integr8ly/grafana-operator
+  operator:
+    enabled: false
+    # Extra labels for selector
+    labels: {}
+  # Use this only if you are using the Grafana sidecar from kiwigrid/k8s-sidecar
+  configmap:
+    enabled: false
+    # Extra labels for selector
+    labels: {}
 
 podDisruptionBudget:
   # https://kubernetes.io/docs/tasks/run-application/configure-pdb/

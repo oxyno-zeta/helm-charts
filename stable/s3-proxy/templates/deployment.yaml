@@ -17,12 +17,12 @@ spec:
     metadata:
       annotations:
         {{- if .Values.customTemplates }}
-        checksum/custom-templates: {{ include (print $.Template.BasePath "/custom-templates.yaml") . | sha256sum }}
+        checksum/custom-templates: {{ keys .Values.customTemplates | toString | sha256sum }}
         {{- end }}
         {{- if .Values.secretFiles }}
-        checksum/secret-file: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        checksum/secret-file: {{ keys .Values.secretFiles | toString | sha256sum }}
         {{- end }}
-        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        checksum/config: {{ keys .Values.configFiles | toString | sha256sum }}
         {{- if .Values.podAnnotations }}
         {{- toYaml .Values.podAnnotations | nindent 8 -}}
         {{- end }}
@@ -66,14 +66,14 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - name: config-volume
-            mountPath: /conf
+            mountPath: /proxy/conf
           {{- if .Values.customTemplates }}
           - name: custom-templates-volume
-            mountPath: /custom-templates
+            mountPath: /proxy/custom-templates
           {{- end }}
           {{- if .Values.secretFiles }}
           - name: secret-files-volume
-            mountPath: /secret-files
+            mountPath: /proxy/secret-files
           {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
