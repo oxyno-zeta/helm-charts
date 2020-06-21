@@ -8,4 +8,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  config.yaml: {{ .Values.config | quote }}
+{{- range $key, $value := .Values.configFiles }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
