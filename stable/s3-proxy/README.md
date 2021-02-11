@@ -76,8 +76,10 @@ The following table lists the configurable parameters of the s3-proxy chart and 
 | `prometheus.serviceMonitor.relabelings`       | Relabelings                                                                                                                                                | `[]`                     |
 | `podAnnotations`                              | Additional annotations to apply to the pod.                                                                                                                | `{}`                     |
 | `grafana.operator.enabled` | If true, create a GrafanaDashboard custom resource using the CRD from [grafana-operator](https://github.com/integr8ly/grafana-operator). | `false` |
+| `grafana.operator.namespace` | If set, the GrafanaDashboard will be installed in a different namespace | `""` |
 | `grafana.operator.labels` | Extra labels for selector | `{}` |
 | `grafana.configmap.enabled` | If true, create a ConfigMap resource compatible with the Grafana sidecar from kiwigrid/k8s-sidecar. | `false` |
+| `grafana.configmap.namespace` | If set, the ConfigMap will be installed in a different namespace | `""` |
 | `grafana.configmap.labels` | Extra labels for selector | `{}` |
 | `podDisruptionBudget.enabled`                 | If true, create a pod disruption budget for prometheus pods. The created resource cannot be modified once created - it must be deleted to perform a change | `false`                  |
 | `podDisruptionBudget.minAvailable`            | Minimum number / percentage of pods that should remain scheduled                                                                                           | `1`                      |

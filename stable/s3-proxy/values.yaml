@@ -346,11 +346,15 @@ grafana:
   # Use this only if you are using the Grafana operator from https://github.com/integr8ly/grafana-operator
   operator:
     enabled: false
+    ## The namespace where the GrafanaDashboard will be installed
+    # namespace: monitoring
     # Extra labels for selector
     labels: {}
   # Use this only if you are using the Grafana sidecar from kiwigrid/k8s-sidecar
   configmap:
     enabled: false
+    ## The namespace where the ConfigMap will be installed
+    # namespace: monitoring
     # Extra labels for selector
     labels: {}
 

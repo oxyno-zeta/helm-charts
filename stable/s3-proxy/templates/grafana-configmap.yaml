@@ -3,6 +3,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "s3-proxy.fullname" . }}-dashboard
+  {{- if .Values.grafana.configmap.namespace }}
+  namespace: {{ .Values.grafana.configmap.namespace }}
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
     helm.sh/chart: {{ include "s3-proxy.chart" . }}

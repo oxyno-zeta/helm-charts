@@ -3,6 +3,9 @@ apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDashboard
 metadata:
   name: {{ include "s3-proxy.fullname" . }}-dashboard
+  {{- if .Values.grafana.operator.namespace }}
+  namespace: {{ .Values.grafana.operator.namespace }}
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
     helm.sh/chart: {{ include "s3-proxy.chart" . }}
