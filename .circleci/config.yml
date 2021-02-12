@@ -22,7 +22,7 @@ jobs:
             ct lint --config scripts/ct.yaml
   sync:
     docker:
-      - image: alpine/helm:2.14.3
+      - image: alpine/helm:2.17.0
     steps:
       - checkout
       - run:
