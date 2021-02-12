@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "3.2.0"
 description: A Helm chart for Kubernetes to deploy S3-Proxy
 name: s3-proxy
-version: 2.3.1
+version: 2.2.0
 home: https://github.com/oxyno-zeta/s3-proxy
 icon: https://raw.githubusercontent.com/oxyno-zeta/s3-proxy/master/docs/logo/logo.png
 sources:
