@@ -42,7 +42,7 @@ The following table lists the configurable parameters of the s3-proxy chart and 
 | `replicaCount`                                | Desired number of pods                                                                                                                                     | `1`                      |
 | `image.name`                                  | Container image name (Including repository name if not `hub.docker.com`).                                                                                  | `oxynozeta/s3-proxy`     |
 | `image.pullPolicy`                            | Container pull policy.                                                                                                                                     | `IfNotPresent`           |
-| `image.tag`                                   | Container image tag.                                                                                                                                       | `3.0.3`                  |
+| `image.tag`                                   | Container image tag.                                                                                                                                       | `3.2.0`                  |
 | `nameOverride`                                | Name override                                                                                                                                              | `""`                     |
 | `fullnameOverride`                            | Fullname override                                                                                                                                          | `""`                     |
 | `service.annotations`                         | Annotations to add to service                                                                                                                              | `{}`                     |
@@ -57,6 +57,7 @@ The following table lists the configurable parameters of the s3-proxy chart and 
 | `ingress.hosts`                               | Ingress accepted hostnames                                                                                                                                 | `[]`                     |
 | `ingress.tls`                                 | Ingress TLS configuration                                                                                                                                  | `[]`                     |
 | `customTemplates`                             | S3 Proxy custom templates files (mounted in /custom-templates)                                                                                             | `{}`                     |
+| `existingSecret`                              | Existing secret (instead of secretFiles)                                                                                                                   | `""`                     |
 | `secretFiles`                                 | Secret files for secrets declaration and usage                                                                                                             | `{}`                     |
 | `env`                                         | Environment variables                                                                                                                                      | `{}`                     |
 | `configFiles`                                      | [S3 proxy configuration](https://oxyno-zeta.github.io/s3-proxy/#configuration) files)                                                                                           | Example of configuration |
@@ -76,8 +77,10 @@ The following table lists the configurable parameters of the s3-proxy chart and 
 | `prometheus.serviceMonitor.relabelings`       | Relabelings                                                                                                                                                | `[]`                     |
 | `podAnnotations`                              | Additional annotations to apply to the pod.                                                                                                                | `{}`                     |
 | `grafana.operator.enabled` | If true, create a GrafanaDashboard custom resource using the CRD from [grafana-operator](https://github.com/integr8ly/grafana-operator). | `false` |
+| `grafana.operator.namespace` | If set, the GrafanaDashboard will be installed in a different namespace | `""` |
 | `grafana.operator.labels` | Extra labels for selector | `{}` |
 | `grafana.configmap.enabled` | If true, create a ConfigMap resource compatible with the Grafana sidecar from kiwigrid/k8s-sidecar. | `false` |
+| `grafana.configmap.namespace` | If set, the ConfigMap will be installed in a different namespace | `""` |
 | `grafana.configmap.labels` | Extra labels for selector | `{}` |
 | `podDisruptionBudget.enabled`                 | If true, create a pod disruption budget for prometheus pods. The created resource cannot be modified once created - it must be deleted to perform a change | `false`                  |
 | `podDisruptionBudget.minAvailable`            | Minimum number / percentage of pods that should remain scheduled                                                                                           | `1`                      |

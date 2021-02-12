@@ -3,13 +3,16 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "s3-proxy.fullname" . }}-dashboard
+  {{- if .Values.grafana.configmap.namespace }}
+  namespace: {{ .Values.grafana.configmap.namespace }}
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "s3-proxy.name" . }}
     helm.sh/chart: {{ include "s3-proxy.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    {{ if .Values.grafana.operator.labels }}
-    {{ toYaml .Values.grafana.operator.labels | nindent 4 }}
+    {{ if .Values.grafana.configmap.labels }}
+    {{ toYaml .Values.grafana.configmap.labels | nindent 4 }}
     {{ end }}
 data:
     s3-proxy-dashboard.json: {{ $.Files.Get "files/s3-proxy-dashboard.json" | toJson }}
