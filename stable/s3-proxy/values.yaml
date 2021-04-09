@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: oxynozeta/s3-proxy
-  tag: 3.1.0
+  tag: 3.3.0
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -36,7 +36,7 @@ ingress:
   #      - chart-example.local
 
 # Custom templates declaration
-# Will be mounted in /custom-templates
+# Will be mounted in /proxy/custom-templates
 customTemplates: {}
 #   # Bad Request template example
 #   bad-request.tpl: |-
@@ -50,13 +50,13 @@ customTemplates: {}
 #   # Add other template files here
 
 # Existing secret
-# Will be mounted in /secret-files
+# Will be mounted in /proxy/secret-files
 existingSecret: ""
   # Example
   # my-awesome-secret
 
 # Secret files for secrets declaration
-# Will be mounted in /secret-files
+# Each key will be mounted in /proxy/secret-files
 secretFiles: {}
   # Example
   # my-syper-secret-file: my-awesome-secret
@@ -292,7 +292,7 @@ configFiles:
           #   accessKey:
           #     env: AWS_ACCESS_KEY_ID
           #   secretKey:
-          #     path: secret_key_file
+          #     path: /proxy/secret-files/secret_key_file
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
