@@ -9,17 +9,17 @@ jobs:
           name: lint
           command: |
             shellcheck -x scripts/release.sh
-  lint-charts:
-    docker:
-      - image: gcr.io/kubernetes-charts-ci/test-image:v3.3.2
-    steps:
-      - checkout
-      - run:
-          name: lint
-          command: |
-            git remote add k8s https://github.com/oxyno-zeta/helm-charts
-            git fetch k8s master
-            ct lint --config scripts/ct.yaml
+  # lint-charts:
+  #   docker:
+  #     - image: gcr.io/kubernetes-charts-ci/test-image:v3.3.2
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: lint
+  #         command: |
+  #           git remote add k8s https://github.com/oxyno-zeta/helm-charts
+  #           git fetch k8s master
+  #           ct lint --config scripts/ct.yaml
   sync:
     docker:
       - image: alpine/helm:2.17.0
@@ -47,15 +47,15 @@ workflows:
             branches:
               ignore:
                 - gh-pages
-      - lint-charts:
-          filters:
-            branches:
-              ignore:
-                - gh-pages
+      # - lint-charts:
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - gh-pages
       - sync:
           requires:
             - lint-scripts
-            - lint-charts
+            # - lint-charts
           filters:
             branches:
               only:
