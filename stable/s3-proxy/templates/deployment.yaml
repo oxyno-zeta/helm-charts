@@ -79,6 +79,9 @@ spec:
           - name: secret-files-volume
             mountPath: /proxy/secret-files
           {{- end }}
+        {{- with .Values.sidecars }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

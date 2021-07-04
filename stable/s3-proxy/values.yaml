@@ -385,6 +385,10 @@ configFiles:
           #   secretKey:
           #     path: secret_key_file
 
+# Sidecars
+# The full container definition is available here.
+sidecars: []
+
 resources:
   {}
   # We usually recommend not to specify default resources and to leave this as a conscious
