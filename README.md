@@ -1,8 +1,8 @@
 # helm-charts
 
-[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/oxyno-zeta)](https://artifacthub.io/packages/search?repo=oxyno-zeta)
+## OBSOLETE
 
-Welcome on the Oxyno-zeta Helm chart registry.
+This repository have been archived. But another one have been created with a better CD and management system here: https://github.com/oxyno-zeta/helm-charts-v2
 
 ## Stable
 
